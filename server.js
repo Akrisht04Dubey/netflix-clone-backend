@@ -120,7 +120,7 @@ app.post('/login', async (req, res) => {
 app.post('/history', verifyToken, async (req, res) => {
   try {
     // req.user.userId comes directly from your decoded JWT!
-    const userId = req.user.userId; 
+    const userId = req.user.userId || req.user.id;
     const { videoId, progressSeconds } = req.body;
 
     // Insert or update the user's watch progress in PostgreSQL
