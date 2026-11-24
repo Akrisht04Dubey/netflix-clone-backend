@@ -121,7 +121,8 @@ app.post('/history', verifyToken, async (req, res) => {
   try {
     // req.user.userId comes directly from your decoded JWT!
     const userId = req.user.userId || req.user.id;
-    const { videoId, progressSeconds } = req.body;
+    const videoId = req.body.videoId || req.body.video_id;
+const progressSeconds = req.body.progressSeconds ?? req.body.progress_seconds ?? 0;
 
     // Insert or update the user's watch progress in PostgreSQL
     await pool.query(
