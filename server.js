@@ -141,7 +141,7 @@ app.post('/history', verifyToken, async (req, res) => {
 // Get User Watch History
 app.get('/history', verifyToken, async (req, res) => {
   try {
-    const userId = req.user.userId;
+    const userId = req.user.userId || req.user.id;
     
     // Fetch all history for this user, sorted by most recently watched
     const history = await pool.query(
@@ -161,7 +161,7 @@ app.post('/api/add-favorite', verifyToken, async (req, res) => {
     const { movieId, movieTitle, posterPath } = req.body;
     
     // 2. Grab the logged-in user's ID from the JWT token
-    const userId = req.user.id; 
+    const userId = req.user.id || req.user.userId; 
 
     // 3. Save to the database using the correct SQL syntax
     const newFavorite = await pool.query(
